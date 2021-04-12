@@ -18,38 +18,45 @@ fun main(){
     br.close()
 }
 
+
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
 
-    val nums=br.readLine().split(" ")
-    //nums[0],nums[1]이 각각의 숫자
+    val word=br.readLine()
+    //val dial=arrayOf("","ABC","DEF","GHI","JKL","MNO","PQRS","TUV","WXYZ","")
+    var time=0
+    for(w in word){
 
-    val n1=changeNums(nums[0]).toInt()
-    val n2=changeNums(nums[1]).toInt()
+        when(w){
 
-    bw.write("${compareNums(n1, n2)}")
+            in 'A'..'C'->time+=3
+            in 'D'..'F'->time+=4
+            in 'G'..'I'->time+=5
+            in 'J'..'L'->time+=6
+            in 'M'..'O'->time+=7
+            in 'P'..'S'->time+=8
+            in 'T'..'V'->time+=9
+            in 'W'..'Z'->time+=10
 
-    br.close()
-    bw.close()
-}
-
-fun changeNums(num:String):String{
-    var reverseNum=""
-
-    for(i in 1 .. 3){
-       // reverseNum[i]=num[3-i] 엥 이게 왜 안돼누,,
-        reverseNum+=num[3-i]
+        }
     }
-    return reverseNum
-}
+    bw.write("$time")
+    bw.flush()
 
-fun compareNums(n1:Int,n2:Int):Int{
-    if(n1>n2) return n1
-    else return n2
+
+    bw.close()
+    br.close()
+
 }
 /*
-1. 두수 받기 (버퍼)
-2.
-3. 숫자 위치바꾸는 함수 구현
-4. 출력
+이 단어 최소시간
+1. 단어받기
+2.단어에 해당하는 숫자데이터만들기 (문자열로 배열만들자!)
+3.최소시간 구하기
+
+ */
+
+/*
+??배열이나 컬랙션에서 값알때 인덱스 어케찾을까??
+
  */
