@@ -4,49 +4,49 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 
-//#1193
+//#2869
 fun main(){
+
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
 
-    val num=br.readLine().toInt()
-    var groupIndex=1
-    var groupCount:Int
-    while(true){
-        groupCount=groupIndex*(groupIndex+1)/2
+    val input=br.readLine().split(" ")
+    val day=input[0].toInt()
+    val night=input[1].toInt()
+    val tree=input[2].toInt()
 
-        if(num<=groupCount){
-            bw.write(getFraction(num,groupIndex,groupCount))
-            break
-        }
-        else groupIndex++
-    }
+    var days=0
+
+
+    val gap=day-night
+    val tempTree=tree-day
+    if(tempTree%gap==0) days=(tempTree/gap)+1
+    else days=(tempTree/gap)+2
+
+    //일일히 비교 방법->이렇게하면 너무 오래걸림;;
+//    while(true){
+//        total+=day
+//        if(tree<=total) break
+//        else {
+//            total -= night
+//            days++
+//        }
+//    }
+
+    bw.write("$days")
+
+
 
     br.close()
     bw.close()
 
 }
-fun getFraction(n:Int,index:Int,count:Int):String{
-    var order=n-(count-index) //count-index=precount
-    //println(order)
-    var numerator=if(index%2==0)order
-                    else index-order+1
-    var denominator=if(index%2==0)index-order+1
-                    else order
-
-    return "$numerator/$denominator"
-}
 
 /*
- 분자 1/-1-2/-1-2-3/-1-2-3-4/-...
- 분모 1/-2-1/-3-2-1/-4-3-2-1/-...
-
- 등차수열 공식이용하면 (g=그룹 인덱스,그룹별 숫자 수)
- g그룹까지의 전체 개수= 1/2*g*(g+1)
-
- -->자기순서=n-그전 그룹까지의 개수
- 분자 : (index짝수면)자기순서 (홀수면)역수
- ---------------------------------------
- 분모 : (짝수면)그 그룹 인덱스(개수)-자기순서(홀수면)자기순서
+  나무높이 V, 낮이동 A , 밤후퇴 B
+  하루에 총 이동한 거리 gap=A-B
+  다음날이면 정상에 도착하는 거리 : V-A
+  (V-A)%gap==0 -> 걸린날짜=(V-A)/gap+1
+    else-> 걸린날짜->(V-A)/gap+2
  */
 
