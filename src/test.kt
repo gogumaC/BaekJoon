@@ -4,38 +4,40 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 
 
-//#2869
-fun main(){
+//#10250
+fun main() {
 
-    val br=BufferedReader(InputStreamReader(System.`in`))
-    val bw=BufferedWriter(OutputStreamWriter(System.`out`))
+    val br = BufferedReader(InputStreamReader(System.`in`))
+    val bw = BufferedWriter(OutputStreamWriter(System.`out`))
 
-    val input=br.readLine().split(" ")
-    val day=input[0].toInt()
-    val night=input[1].toInt()
-    val tree=input[2].toInt()
+    val testCase = br.readLine().toInt()
+    for (i in 0 until testCase) {
 
-    var days=0
+        var inf = br.readLine().split(" ")
+        var roomNum :String
+        // inf[0] : 층수 , inf[1] : 방 수 , inf[2] : 몇번째손님
+        var floor:Int
+        var room:Int
 
+        when(inf[2].toInt() % inf[0].toInt()){
+            0->{
+                floor=inf[0].toInt()
+                room=inf[2].toInt() / inf[0].toInt()
+            }
+            else->{
+                floor=inf[2].toInt() % inf[0].toInt()
+                room=inf[2].toInt() / inf[0].toInt() + 1
+            }
+        }
 
-    val gap=day-night
-    val tempTree=tree-day
-    if(tempTree%gap==0) days=(tempTree/gap)+1
-    else days=(tempTree/gap)+2
+        roomNum = "$floor${
+            if (room < 10) "0$room"
+            else "$room"
+        }"
+        bw.write("$roomNum\n")
+        bw.flush()
 
-    //일일히 비교 방법->이렇게하면 너무 오래걸림;;
-//    while(true){
-//        total+=day
-//        if(tree<=total) break
-//        else {
-//            total -= night
-//            days++
-//        }
-//    }
-
-    bw.write("$days")
-
-
+    }
 
     br.close()
     bw.close()
@@ -43,10 +45,15 @@ fun main(){
 }
 
 /*
-  나무높이 V, 낮이동 A , 밤후퇴 B
-  하루에 총 이동한 거리 gap=A-B
-  다음날이면 정상에 도착하는 거리 : V-A
-  (V-A)%gap==0 -> 걸린날짜=(V-A)/gap+1
-    else-> 걸린날짜->(V-A)/gap+2
+T : 테스트 케이스 수,
+H(층 수), W(방 수), N(몇번째 손님)
+
+  가장짧은거리방
+  엘리베이터 가장 왼쪽
+  HxW 형태 호텔
+  두 방사이의 거리=1
+  방번호 :층수,엘베부터 세었을때 번호
+  걷는 거리가 같을때는 아래층방선호
+  첫번째 101 ->201
  */
 
