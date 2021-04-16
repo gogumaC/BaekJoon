@@ -5,22 +5,16 @@ import java.io.OutputStreamWriter
 import java.math.BigInteger
 
 
-//#1978
+//#2581
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
 
+    val M=br.readLine().toInt()
     val N=br.readLine().toInt()
-    var nums=br.readLine().split(" ")
 
-    var count=0
 
-    for(n in nums){
-
-        if (n.toInt()!=1&&checkNum(n.toInt())) count++
-    }
-
-    bw.write("$count")
+    bw.write("${checkNum(M,N)}")
 
 
 
@@ -31,25 +25,31 @@ fun main() {
 
 }
 
-fun checkNum(n:Int):Boolean{
+fun checkNum(m:Int,n:Int):String{
 
-    for(div in 2 until n){
-        if(n%div==0) return false
+    var min=n
+    var total=0
+    go@ for(num in m..n){
+        if(num!=1) {
+            for (div in 2..num - 1) {
+                if (num % div == 0) {
+                    continue@go
+                }
+            }
+            if (num < min) min = num
+            total += num
+        }
     }
-    return true
+
+
+
+    return if(total==0)"-1" else "$total\n$min"
 }
 
 
 
 /*
-소수출력 프로그램
-숫자개수 N<100
-숫자<1000 자연수
-->소수개수 출력
-
-소수: 소인수가 자기랑 1밖에 없는 친구 (! 1은 소수아님 !)
-
-
-엥 로직은 비슷한데 다른사람들보다 꽤 오래 걸린다-> 아마 자료 입출력에서 시간이 걸리나보당,,
+M<=X<=N 에서 소수찾아서 최솟값 출력하기
+없으면 -1
  */
 
