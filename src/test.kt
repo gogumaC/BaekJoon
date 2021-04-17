@@ -5,18 +5,13 @@ import java.io.OutputStreamWriter
 import java.math.BigInteger
 
 
-//#2581
+//#11653
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
-
-    val M=br.readLine().toInt()
     val N=br.readLine().toInt()
-
-
-    bw.write("${checkNum(M,N)}")
-
-
+    var result=check(N)//"${checkPrimeFac(N,findPrimNum(N))}"
+    bw.write(result)
 
     br.close()
     bw.close()
@@ -25,31 +20,40 @@ fun main() {
 
 }
 
-fun checkNum(m:Int,n:Int):String{
 
-    var min=n
-    var total=0
-    go@ for(num in m..n){
-        if(num!=1) {
-            for (div in 2..num - 1) {
-                if (num % div == 0) {
-                    continue@go
-                }
+fun check(N:Int):String {
+    var result = ""
+    var divN = N
+
+    if(N==1)return ""
+
+    go@ while (divN!=1) {
+
+        for (i in 2 until divN) {
+            if (divN % i == 0) {
+                result += "$i\n"
+                divN = divN / i
+                continue@go
             }
-            if (num < min) min = num
-            total += num
         }
+        if(divN!=1){
+            result+=divN
+            divN=1
+        }
+
     }
 
-
-
-    return if(total==0)"-1" else "$total\n$min"
+    return result
 }
 
 
-
 /*
-M<=X<=N 에서 소수찾아서 최솟값 출력하기
-없으면 -1
+소인수분해
+ 정수N
+ 1.1~N까지 소수찾기
+ 1-2.만약 N이 소수면 N을출력, 1이면 출력하지 않기
+ 2. 찾은 소수를 돌아가면서N을나누고 나눠지면 div=div*찾은소스,br.write에  찾은숫자 \n입력, N/div해서 반복
+
+ -->이거 너무 오래걸림->시간초과
  */
 
