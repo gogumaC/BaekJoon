@@ -5,35 +5,38 @@ import java.io.OutputStreamWriter
 import kotlin.math.sqrt
 
 
-//#9020
+//#3009
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
 
-    val (x, y, w, h) = br.readLine().split(" ")
-
-    bw.write("${findMin(arrayOf(x.toInt(),y.toInt(),w.toInt()-x.toInt(),h.toInt()-y.toInt()))}")
+    val n1=br.readLine().split(" ")
+    val n2=br.readLine().split(" ")
+    val n3=br.readLine().split(" ")
+    val x=findDif(n1[0].toInt(),n2[0].toInt(),n3[0].toInt())
+    val y=findDif(n1[1].toInt(),n2[1].toInt(),n3[1].toInt())
+    bw.write("$x $y")
     br.close()
     bw.close()
 
 }
 
-fun findMin(nums:Array<Int>):Int{
-    var min=1000
-    for(num in nums){
-        if(num<min){
-            min=num
-        }
+fun findDif(n1:Int,n2:Int,n3:Int):Int{
+    when{
+        n1==n2->return n3
+        n2==n3->return n1
+        n1==n3->return n2
+        else ->return -1
     }
-    return min
 }
 
 
 
 
 /*
-입력 : x y w h
-출력 : 직사각형 경계면까지의 최소거리
+  입력 : 세점의 좌표
+  출력 : 네번째점의 좌표
 
-위치가 (x,y)일때 직사각형까지 가는 4개의 직선거리는 x,y,w-x,h-y이므로 이 네개의 숫자중 최솟값을 구해서 출력
- */
+  조건 : 축에 평행한 직사각형
+  사고 : 같은수 각각 2개씩있어야하므로 없는거 출력 ->세 값 받아서 조건문써서 같으면 나머지하나 방출
+*/
