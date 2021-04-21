@@ -4,43 +4,23 @@ import java.io.InputStreamReader
 import java.io.OutputStreamWriter
 import kotlin.math.sqrt
 
+val PI=3.1415926535897932384626433832795028841971693993751058209
 
-//#4153
+//#3053
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
+    val rad=br.readLine().toInt()
+    var euclid=rad*rad*PI
+    var taxi=rad*rad*2.000000
+    bw.write("$euclid\n$taxi")
 
-    while(true){
-        var input=br.readLine().split(" ")
-        if(input[0]=="0"&&input[1]=="0"&&input[2]=="0")break
-        if(pita(input[0].toInt(),input[1].toInt(),input[2].toInt())) bw.write("right\n")
-        else bw.write("wrong\n")
-        bw.flush()
-    }
     br.close()
     bw.close()
 
 }
 
-fun pita(n1:Int,n2:Int,n3:Int):Boolean{
-    var nums= mutableListOf(n1,n2,n3)
-    var temp:Int
 
-    for(i in 0 until 3){
-        for(j in i+1 until 3){
-            if(nums[i]>nums[j]){
-                temp=nums[i]
-                nums[i]=nums[j]
-                nums[j]=temp
-            }
-        }
-
-    }
-
-    if(nums[2]*nums[2]==nums[1]*nums[1]+nums[0]*nums[0]) return true
-    return false
-
-}
 
 
 
@@ -48,5 +28,15 @@ fun pita(n1:Int,n2:Int,n3:Int):Boolean{
 
 
 /*
-피타고라스 정리사용 -> 다른 사람들은 조건문 사용해서 시간 줄인듯
+두점사이거리
+    유클리드 기하학 : sqrt((x2-x1)^2+(y2-y2)^2)
+    택시 기하학 : |x1-x2|+|y1-y2|
+
+입력 :반지름
+출력 : 각 방법으로의 원의 넓이 :
+ 유클리드 :R^2*pi
+ 택시기하학 : 원이 마름모꼴로 나오게 됨->R^2*2
+
+
+ ->나중에 string.format사용해서 값 더 깔끔하게 만들수 있을듯
 */
