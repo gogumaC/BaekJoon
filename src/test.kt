@@ -2,21 +2,43 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 import java.io.InputStreamReader
 import java.io.OutputStreamWriter
+import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
-val PI=3.1415926535897932384626433832795028841971693993751058209
 
-//#3053
+
+//#1002
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
-    val rad=br.readLine().toInt()
-    var euclid=rad*rad*PI
-    var taxi=rad*rad*2.000000
-    bw.write("$euclid\n$taxi")
 
+    for(t in 0 until br.readLine().toInt()){
+        bw.write(getPointNum(br.readLine()))
+        bw.flush()
+    }
     br.close()
     bw.close()
+
+}
+
+fun getPointNum(input:String):String {
+    val inputList = input.split(" ")
+    val x1 = inputList[0].toInt()
+    val y1 = inputList[1].toInt()
+    val r1 = inputList[2].toDouble()
+    val x2 = inputList[3].toInt()
+    val y2 = inputList[4].toInt()
+    val r2 = inputList[5].toDouble()
+
+    val pointsDistance = sqrt(((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1)).toDouble())
+    when {
+        pointsDistance == 0.0&&r1==r2 -> return "-1\n"
+        pointsDistance > (r1 + r2)||pointsDistance<(r2-r1).absoluteValue-> return "0\n"
+        pointsDistance == (r1 + r2)||pointsDistance==(r2-r1).absoluteValue -> return "1\n"
+        pointsDistance < (r1 + r2)&&pointsDistance>(r2-r1).absoluteValue -> return "2\n"
+
+        else ->return "err\n"
+    }
 
 }
 
@@ -28,15 +50,5 @@ fun main() {
 
 
 /*
-두점사이거리
-    유클리드 기하학 : sqrt((x2-x1)^2+(y2-y2)^2)
-    택시 기하학 : |x1-x2|+|y1-y2|
 
-입력 :반지름
-출력 : 각 방법으로의 원의 넓이 :
- 유클리드 :R^2*pi
- 택시기하학 : 원이 마름모꼴로 나오게 됨->R^2*2
-
-
- ->나중에 string.format사용해서 값 더 깔끔하게 만들수 있을듯
 */
