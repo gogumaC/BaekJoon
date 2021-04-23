@@ -1,38 +1,31 @@
-import java.io.BufferedReader
-import java.io.BufferedWriter
-import java.io.InputStreamReader
-import java.io.OutputStreamWriter
+import java.io.*
 import kotlin.math.absoluteValue
 import kotlin.math.sqrt
 
 
 
-//#10872
+//#10870
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
 
-    val result=getFac(br.readLine().toInt()).toString()
-    bw.write(result)
-
+    bw.write("${pibo(br.readLine().toInt())}\n")
     br.close()
     bw.close()
 
 }
 
-fun getFac(input:Int):Int{
-    if (input==0)return 1
-    var result:Int
-    if(input==1) return 1
-        result=input*getFac(input-1)
-
-
-    return result
+fun pibo(count:Int):Int{
+    if(count==1)return 1
+    else if(count==0) return 0
+    val piboNum=pibo(count-1)+pibo(count-2)
+    return piboNum
 }
 
 
 
 
 /*
-
+피보나치 수
+0 1 |1 2
 */
