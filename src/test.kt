@@ -1,53 +1,32 @@
 import java.io.*
 
-//#11792
-private val bw=BufferedWriter(OutputStreamWriter(System.`out`))
+//#2798
+
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
+    val bw=BufferedWriter(OutputStreamWriter(System.`out`))
+    val (cardNum,max)=br.readLine().split(" ")
+    val cards=br.readLine().split(" ")
+
+    var maxNum=0
+    for(c1 in 0 until cardNum.toInt()-2){
+        for(c2 in c1+1 until cardNum.toInt()-1){
+            for(c3 in c2+1 until cardNum.toInt()) {
+                var sum =cards[c1].toInt() + cards[c2].toInt() + cards[c3].toInt()
+                        if (sum <= max.toInt()) {
+                            if (sum > maxNum) maxNum = sum
+                        }
+            }
 
 
-    var input=br.readLine().toInt()
-    bw.write("${hanoi(input)}\n")
-    hanoiOrder2(input,1,3,2)
-    br.close()
+        }
+    }
+
+
+    bw.write("$maxNum")
     bw.close()
+    br.close()
 
-}
-
-fun hanoi(input:Int):Int{
-
-    if(input==1)return 1
-    val count=Math.pow(2.0,input.toDouble())-1
-
-    return count.toInt()
-}
-
-fun hanoiOrder(input:Int,from:Int,to:Int,via:Int) :String{
-
-
-
-    if (input == 1) {
-        return "$from $to\n"
-    }
-    var result=""
-    result+=hanoiOrder(input - 1, from, via, to)
-    result+="$from $to\n"
-    result+=hanoiOrder(input - 1, via, to, from) //다시탑
-
-    return result
-}
-
-fun hanoiOrder2(input:Int,from:Int,to:Int,via:Int){
-
-
-
-    if (input == 1) {
-        bw.write("$from $to\n")
-    }else{
-        hanoiOrder2(input - 1, from, via, to)
-        bw.write("$from $to\n")
-        hanoiOrder2(input - 1, via, to, from) //다시탑
-    }
 
 }
 
@@ -56,8 +35,7 @@ fun hanoiOrder2(input:Int,from:Int,to:Int,via:Int){
 
 
 /*
-
-하노이의 탑
-
-가장아래꺼를 3번기둥 -> 원래형태로 재귀
+합배열
+M보다 큰값 조건문으로 제거
+남은거중에서 최댓값
 */
