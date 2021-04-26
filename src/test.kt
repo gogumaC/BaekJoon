@@ -1,33 +1,33 @@
 import java.io.*
 
-//#2798
+//#2231
 
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
-    val (cardNum,max)=br.readLine().split(" ")
-    val cards=br.readLine().split(" ")
 
-    var maxNum=0
-    for(c1 in 0 until cardNum.toInt()-2){
-        for(c2 in c1+1 until cardNum.toInt()-1){
-            for(c3 in c2+1 until cardNum.toInt()) {
-                var sum =cards[c1].toInt() + cards[c2].toInt() + cards[c3].toInt()
-                        if (sum <= max.toInt()) {
-                            if (sum > maxNum) maxNum = sum
-                        }
-            }
+    bw.write("${getMinCons(br.readLine().toInt())}")
 
-
-        }
-    }
-
-
-    bw.write("$maxNum")
-    bw.close()
     br.close()
+    bw.close()
+}
 
+fun getMinCons(n:Int):Int{
 
+//999->999+9+9+9->1026
+    for(num in n-(n.toString().length)*9 until n){
+        var cons=num
+        num.toString().forEach{
+            cons+=it-'0'
+        }
+
+//        for(i in numString){
+//            cons+=i-'0'
+//        }
+
+        if(cons==n) return num
+    }
+    return 0
 }
 
 
@@ -35,7 +35,5 @@ fun main() {
 
 
 /*
-합배열
-M보다 큰값 조건문으로 제거
-남은거중에서 최댓값
+
 */
