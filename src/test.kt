@@ -6,29 +6,34 @@ fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
 
-    bw.write("${getMinCons(br.readLine().toInt())}")
+    val case=br.readLine().toInt()
+    val bigs=Array(case,{Big(0,0)})
+    for(i in 0 until case){
+        val (w,h)=br.readLine().split(" ")
+        bigs[i].w=w.toInt()
+        bigs[i].h=h.toInt()
+    }
+
+    bw.write("${getRank(bigs)}")
 
     br.close()
     bw.close()
 }
 
-fun getMinCons(n:Int):Int{
-
-//999->999+9+9+9->1026
-    for(num in n-(n.toString().length)*9 until n){
-        var cons=num
-        num.toString().forEach{
-            cons+=it-'0'
+fun getRank(bigs:Array<Big>):String{
+    var result=""
+    for(i in bigs.indices){
+        var tempCount=0
+        for(j in bigs.indices){
+            if(bigs[i].w<bigs[j].w&&bigs[i].h<bigs[j].h) tempCount++
         }
-
-//        for(i in numString){
-//            cons+=i-'0'
-//        }
-
-        if(cons==n) return num
+        if(i==bigs.size-1){result+="${tempCount+1}"}
+        else result+="${tempCount+1} "
     }
-    return 0
+    return result
 }
+
+data class Big(var w:Int,var h:Int)
 
 
 
