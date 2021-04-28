@@ -1,54 +1,45 @@
 import java.io.*
 
-//#11792
-private val bw=BufferedWriter(OutputStreamWriter(System.`out`))
+//#1018
+
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
+    val bw=BufferedWriter(OutputStreamWriter(System.`out`))
+    val n=br.readLine().toInt()
+    //666 1666 2666 3666 4666 5666 6660~6669 7666 8666 9666 10666 11666 12666 13666 14666 15666 16660~16669 17666
+
+    bw.write("${oneone(n)}")
 
 
-    var input=br.readLine().toInt()
-    bw.write("${hanoi(input)}\n")
-    hanoiOrder2(input,1,3,2)
     br.close()
     bw.close()
-
 }
 
-fun hanoi(input:Int):Int{
-
-    if(input==1)return 1
-    val count=Math.pow(2.0,input.toDouble())-1
-
-    return count.toInt()
-}
-
-fun hanoiOrder(input:Int,from:Int,to:Int,via:Int) :String{
-
-
-
-    if (input == 1) {
-        return "$from $to\n"
+fun oneone(n:Int):Int{
+    var count=0
+    var num=666
+    while(true){
+//        if(six(n)) count++ -> 두배로 느림;;
+        if(num.toString().contains("666")) count++
+        if(count==n)break
+        num++
     }
-    var result=""
-    result+=hanoiOrder(input - 1, from, via, to)
-    result+="$from $to\n"
-    result+=hanoiOrder(input - 1, via, to, from) //다시탑
-
-    return result
+    return num
 }
 
-fun hanoiOrder2(input:Int,from:Int,to:Int,via:Int){
+fun six(n:Int):Boolean{
+    var six=0
+    var num=n
+    for(i in 0 until n.toString().length) {
 
+        if (num % 10 == 6) six++
+        else six = 0
+        if(six==3)return true
 
+        num /= 10
 
-    if (input == 1) {
-        bw.write("$from $to\n")
-    }else{
-        hanoiOrder2(input - 1, from, via, to)
-        bw.write("$from $to\n")
-        hanoiOrder2(input - 1, via, to, from) //다시탑
     }
-
+    return false
 }
 
 
@@ -57,7 +48,4 @@ fun hanoiOrder2(input:Int,from:Int,to:Int,via:Int){
 
 /*
 
-하노이의 탑
-
-가장아래꺼를 3번기둥 -> 원래형태로 재귀
 */
