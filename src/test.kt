@@ -5,44 +5,41 @@ import java.io.*
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
-    val (n,m)=br.readLine().split(" ")
-    val bord=Array(n.toInt()){""}
+    val n=br.readLine().toInt()
+    //666 1666 2666 3666 4666 5666 6660~6669 7666 8666 9666 10666 11666 12666 13666 14666 15666 16660~16669 17666
 
-    for(i in bord.indices){
-        bord[i]=br.readLine()
-
-    }
-
-
-
-    bw.write("${getState(n.toInt(),m.toInt(),bord)}")
+    bw.write("${oneone(n)}")
 
 
     br.close()
     bw.close()
 }
 
-
-fun getState(n:Int,m:Int,bord:Array<String>):Int{
-    val whiteBord=arrayOf("WBWBWBWB","BWBWBWBW","WBWBWBWB","BWBWBWBW","WBWBWBWB","BWBWBWBW","WBWBWBWB","BWBWBWBW")
-    val blackBord=arrayOf("BWBWBWBW","WBWBWBWB","BWBWBWBW","WBWBWBWB","BWBWBWBW","WBWBWBWB","BWBWBWBW","WBWBWBWB")
-    var min=64
-    for(ver in 0 .. n-8){
-        for(hor in 0 .. m-8){
-            var wcount=0
-            var bcount=0
-            for(i in ver until ver+8){
-                for(j in hor until hor+8){
-                    if(whiteBord[i-ver][j-hor]!=bord[i][j]) wcount++
-                    if(blackBord[i-ver][j-hor]!=bord[i][j]) bcount++
-                }
-            }
-            if(wcount<min)min=wcount
-            if(bcount<min)min=bcount
-
-        }
+fun oneone(n:Int):Int{
+    var count=0
+    var num=666
+    while(true){
+//        if(six(n)) count++ -> 두배로 느림;;
+        if(num.toString().contains("666")) count++
+        if(count==n)break
+        num++
     }
-    return min
+    return num
+}
+
+fun six(n:Int):Boolean{
+    var six=0
+    var num=n
+    for(i in 0 until n.toString().length) {
+
+        if (num % 10 == 6) six++
+        else six = 0
+        if(six==3)return true
+
+        num /= 10
+
+    }
+    return false
 }
 
 
