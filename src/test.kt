@@ -1,46 +1,42 @@
 import java.io.*
 
-//#1018
+//#2750
 
 fun main() {
     val br=BufferedReader(InputStreamReader(System.`in`))
     val bw=BufferedWriter(OutputStreamWriter(System.`out`))
-    val n=br.readLine().toInt()
-    //666 1666 2666 3666 4666 5666 6660~6669 7666 8666 9666 10666 11666 12666 13666 14666 15666 16660~16669 17666
 
-    bw.write("${oneone(n)}")
+    val case=br.readLine().toInt()
+    val nums=Array(case,{0})
 
-
+    for(i in 0 until case){
+       nums[i]=br.readLine().toInt()
+    }
+    upSort(nums).forEach{
+        bw.write("$it\n")
+    }
     br.close()
     bw.close()
 }
 
-fun oneone(n:Int):Int{
-    var count=0
-    var num=666
-    while(true){
-//        if(six(n)) count++ -> 두배로 느림;;
-        if(num.toString().contains("666")) count++
-        if(count==n)break
-        num++
+fun upSort(nums:Array<Int>):Array<Int>{
+
+    var temp:Int
+    for(i in 0 until nums.size-1){
+        for(j in i+1 until nums.size){
+            if(nums[i]>nums[j]){
+                temp=nums[i]
+                nums[i]=nums[j]
+                nums[j]=temp
+            }
+        }
     }
-    return num
+    return nums
 }
 
-fun six(n:Int):Boolean{
-    var six=0
-    var num=n
-    for(i in 0 until n.toString().length) {
 
-        if (num % 10 == 6) six++
-        else six = 0
-        if(six==3)return true
 
-        num /= 10
 
-    }
-    return false
-}
 
 
 
